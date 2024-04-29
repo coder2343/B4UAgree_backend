@@ -1,0 +1,13 @@
+name: privacy-policy-evaluator
+channels:
+  - defaults
+dependencies:
+  - numpy
+  - pandas
+  - pip
+  - nltk
+  - matplotlib
+  - scikit-learn
+  - mpltools
+#  - pip:                            # Packages installed from PyPI
+#    - requests==2.21.0
