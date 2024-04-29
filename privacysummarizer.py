@@ -125,4 +125,3 @@ def html_to_summary(url):
     return my_dict
               
 #html_to_summary()
-
