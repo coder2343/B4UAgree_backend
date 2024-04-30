@@ -18,12 +18,15 @@ def get_privacy_policy():
   return PrivacyPolicy
 
 # get request 
+
+# get request 
 @app.route('/sum', methods=['GET'])
 def send_summary():
-  # make_sum= get_summary(PrivacyPolicy.pop(),5)
-  make_sum = html_to_summary(PrivacyPolicy.pop())
+  print("request headers")
+  privacyPolicy= request.headers.get('privacyPolicy')
+  make_sum = html_to_summary(privacyPolicy)
+  print("return privacy policy sum")
   return json.dumps(make_sum)
-  # return json.dumps({"summary": make_sum})
 
 if __name__ == '__main__':
   app.run(port=5000)
