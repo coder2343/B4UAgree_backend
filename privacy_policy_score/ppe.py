@@ -9,7 +9,7 @@
 # if it doesn't work, run:
 # python setup.py
 # pip install sklearn
-from privacy_policy_evaluator import commands, helpers, wordscoring
+from privacy_policy_score.privacy_policy_evaluator import commands, helpers, wordscoring
 from typing import Callable
 
 

@@ -5,7 +5,7 @@ import os
 import re
 import json
 import requests
-
+from privacy_policy_score import ppe
 # compute summary from SBertSummarizer
 def get_summary(text,num_sentences):
     """Function take text file and outputs given sumary of said text useing nlp model."""
@@ -25,6 +25,9 @@ def html_to_summary(url):
     
     # beginning parsing with BeautifulSoup
     soup = BeautifulSoup(page.content, "html.parser")
+    f = open("privPolicy.txt", "w")
+    f.write(soup.text)
+    f.close()
 
     # -- parsing and finding the correct content 
 
