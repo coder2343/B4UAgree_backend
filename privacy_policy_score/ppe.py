@@ -28,17 +28,17 @@ def main(args=None):
         commands.parser.parse_args(['-h'])
         pass
 
-def evaluate(args):
+def evaluate(filePath):
     """
     Evaluate a score
     :param args:
     """
     # Read textfile
-    text = helpers.read_file(args.file)
+    text = helpers.read_file(filePath)
     # Get the Score
     score = wordscoring.score_text(text)
     print(score['mean_privacy'])
-    return score
+    return score['mean_privacy']
  
 
 
