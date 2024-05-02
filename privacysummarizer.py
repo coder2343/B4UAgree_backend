@@ -5,45 +5,7 @@ import os
 import re
 import json
 import requests
-
-def receive_text(self):
-    pass
-# --- MIA H - More cleanup should be done. I would like to remove unused functions, but will keep but commented until I have approval from group.
-
-# ---- UNUSED 
-# update_html content with created summary
-# def update_html(summary): 
-#     base = os.path.dirname(os.path.abspath(__file__))
-#     html = open(os.path.join(base, "index.html"))
-#     soup = BeautifulSoup(html, "html.parser")
-#     old_text = soup.find('p', id='content')
-#     tag = soup.new_tag("p", id='content')
-#     tag.string = summary
-#     old_text.replace_with(tag)
-#     with open("index.html", "wb") as f_output:
-#         f_output.write(soup.prettify("utf-8"))
-
-# ---- UNUSED 
-# in the works function from Liam                              
-# def html_to_text(html):
-#     """Function take html file and extract given text."""
-#     f = open("output/privacyPolicy.txt", "a", encoding="utf-8")
-#     soup = BeautifulSoup(html, 'html.parser')
-#     for header in soup.find_all({'h3','h2','h1'}):
-#         next_node = header
-#         while True:
-#             next_node = next_node.nextSibling
-#             if next_node is None:
-#                 break
-#             if isinstance(next_node,NavigableString ):
-#                 print (next_node.strip())
-#             if isinstance(next_node, Tag):
-#                 if next_node.name == "h2"or next_node.name == "h1" or next_node.name == "h3" :
-#                     #print(soup.find(string=nextNode.text.strip()))
-#                     break
-#                 f.write(next_node.get_text(strip=True).strip())
-#     f.close()
-
+from privacy_policy_score.ppe import evaluate 
 # compute summary from SBertSummarizer
 def get_summary(text,num_sentences):
     """Function take text file and outputs given sumary of said text useing nlp model."""
@@ -52,13 +14,6 @@ def get_summary(text,num_sentences):
     #update_html(result)
     return result
 
-# ---- UNUSED 
-# function in the works from Liam 
-# def send_summary(result):
-#     """Function take summary and saves text file"""
-#     f = open("output/summary.txt", "a", encoding="utf-8")
-#     f.write(result)
-#     f.close()
 
 # function that is our powerhouse. retrieves html web page and returns the headings and summaries paired in JSON.
 def html_to_summary(url):
@@ -70,7 +25,12 @@ def html_to_summary(url):
     
     # beginning parsing with BeautifulSoup
     soup = BeautifulSoup(page.content, "html.parser")
-
+    f = open("privPolicy.txt", "w")
+    f.write(soup.text)
+    f.close()
+    privacyScore= evaluate('privPolicy.txt')
+    print(privacyScore)
+    my_dict["PrivacyPolicyScore"] =privacyScore
     # -- parsing and finding the correct content 
 
     # regex for all headers
@@ -125,4 +85,3 @@ def html_to_summary(url):
     return my_dict
               
 #html_to_summary()
-

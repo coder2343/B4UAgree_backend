@@ -4,3 +4,8 @@ Gunicorn
 Torch
 bert-extractive-summarizer
 sentence-transformers
+nltk
+pandas
+sklearn
+numpy
+matplotlib

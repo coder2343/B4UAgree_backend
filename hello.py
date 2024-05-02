@@ -1,6 +1,6 @@
 import json
-from flask import Flask, jsonify, request
-from privacysummarizer import get_summary, html_to_summary
+from flask import Flask, request
+from privacysummarizer import html_to_summary
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -15,6 +15,7 @@ def get_privacy_policy():
   request_data = request.get_json()
   retrivedPolicy= request_data['privacyPolicy']
   PrivacyPolicy.append(retrivedPolicy)
+  print("append_privacyPolicy")
   return PrivacyPolicy
 
 # get request 
