@@ -77,13 +77,13 @@ def html_to_summary(url):
         if sentences_num <= 3: 
             my_dict[header.get_text()] = curr_paragraphs
         # added an upper bound 
-        elif sentences_num => 7: 
-           curr_summary = get_summary(curr_paragraphs, 5)
-           my_dict[header.get_text()] = curr_summary
+        # elif sentences_num => 7: 
+        #    curr_summary = get_summary(curr_paragraphs, 5)
+        #    my_dict[header.get_text()] = curr_summary
         # The current rule of thumb is to summarize the number of sentences within the section by half
         else: 
-           curr_summary = get_summary(curr_paragraphs, round(sentences_num / 2))
-           #curr_summary = get_summary(curr_paragraphs, 3)
+           #curr_summary = get_summary(curr_paragraphs, round(sentences_num / 2))
+           curr_summary = get_summary(curr_paragraphs, 3)
            my_dict[header.get_text()] = curr_summary
 
 
