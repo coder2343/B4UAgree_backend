@@ -6,6 +6,9 @@ import re
 import json
 import requests
 from privacy_policy_score.ppe import evaluate 
+from term_identification import assign_paragraph_to_topic, topics_keywords, calculate_importance
+
+
 # compute summary from SBertSummarizer
 def get_summary(text,num_sentences):
     """Function take text file and outputs given sumary of said text useing nlp model."""
