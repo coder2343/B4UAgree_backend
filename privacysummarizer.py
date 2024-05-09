@@ -21,7 +21,11 @@ def get_summary(text,num_sentences):
 # function that is our powerhouse. retrieves html web page and returns the headings and summaries paired in JSON.
 def html_to_summary(url):
     # we store everything in a dictionary
-    my_dict = {}
+    my_dict = {
+        "PrivacyPolicyScore" : 0,
+        "topics summary": {},
+        "headings summary": {}
+    }
 
     # grabbing webpage content
     page = requests.get(url, headers={"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36",
@@ -75,20 +79,33 @@ def html_to_summary(url):
         sentences_arr = curr_paragraphs.split(".")
         sentences_num = len(sentences_arr)
 
-        # MH -- not seeing much change with summarizing number of sentences
-        # if less than 3 sentences, then no need to summarize
-        if sentences_num <= 3: 
-            my_dict[header.get_text()] = curr_paragraphs
-        # added an upper bound 
-        # elif sentences_num => 7: 
-        #    curr_summary = get_summary(curr_paragraphs, 5)
-        #    my_dict[header.get_text()] = curr_summary
-        # The current rule of thumb is to summarize the number of sentences within the section by half
-        else: 
-           #curr_summary = get_summary(curr_paragraphs, round(sentences_num / 2))
-           curr_summary = get_summary(curr_paragraphs, 3)
-           my_dict[header.get_text()] = curr_summary
+        # Score each section based on term identification and importance assessment
+        section_score = calculate_importance(curr_paragraphs)
 
+        # Assign the section to a topic based on its topic-relevant score
+        assigned_topic = assign_paragraph_to_topic(curr_paragraphs, topics_keywords)
+
+        # Check if the section score is above a certain threshold
+        if section_score >= 7:  
+            # If the score is high, summarize the section with more detail
+            curr_summary = get_summary(curr_paragraphs, 2)  
+        else:
+            # If the score is low, summarize the section more concisely
+            curr_summary = get_summary(curr_paragraphs, 1)  
+
+        # Store summary by topic
+        # Check if the assigned_topic already exists in my_dict
+        if assigned_topic not in my_dict["topics summary"]:
+            my_dict["topics summary"][assigned_topic] = curr_summary  # Create a new entry
+        else:
+            my_dict["topics summary"][assigned_topic] += curr_summary  # Append to existing entry
+
+        # Store summary by heading
+        my_dict["headings summary"][header.get_text()] = curr_summary
+
+    # Sort the dictionary by keys, placing 'Other' last
+    sorted_topics_summary = {k: my_dict["topics summary"][k] for k in sorted(my_dict["topics summary"].keys(), key=lambda x: (x == 'Other', x))}
+    my_dict["topics summary"] = sorted_topics_summary
 
     print(json.dumps(my_dict, indent = 4))
     return my_dict

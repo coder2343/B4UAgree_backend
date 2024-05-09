@@ -99,7 +99,7 @@ def assign_paragraph_to_topic(paragraph, topics_keywords):
 def calculate_importance(paragraph):
     
     # Read privacy policy settings from 'settings.json'
-    with open(os.path.join(os.path.dirname(__file__), 'settings.json')) as json_file:
+    with open(os.path.join(os.path.dirname(__file__), 'privacy_policy_score/privacy_policy_evaluator/data/settings.json')) as json_file:
         privacy_policy_settings = json.load(json_file)
 
     # Initialize variables to store accumulated score and word count
