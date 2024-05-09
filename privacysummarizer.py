@@ -23,8 +23,8 @@ def html_to_summary(url):
     # we store everything in a dictionary
     my_dict = {
         "PrivacyPolicyScore" : 0,
-        "topics summary": {},
-        "headings summary": {}
+        "topics_summary": {},
+        "headings_summary": {}
     }
 
     # grabbing webpage content
@@ -95,17 +95,17 @@ def html_to_summary(url):
 
         # Store summary by topic
         # Check if the assigned_topic already exists in my_dict
-        if assigned_topic not in my_dict["topics summary"]:
-            my_dict["topics summary"][assigned_topic] = curr_summary  # Create a new entry
+        if assigned_topic not in my_dict["topics_summary"]:
+            my_dict["topics_summary"][assigned_topic] = curr_summary  # Create a new entry
         else:
-            my_dict["topics summary"][assigned_topic] += curr_summary  # Append to existing entry
+            my_dict["topics_summary"][assigned_topic] += curr_summary  # Append to existing entry
 
         # Store summary by heading
-        my_dict["headings summary"][header.get_text()] = curr_summary
+        my_dict["headings_summary"][header.get_text()] = curr_summary
 
     # Sort the dictionary by keys, placing 'Other' last
-    sorted_topics_summary = {k: my_dict["topics summary"][k] for k in sorted(my_dict["topics summary"].keys(), key=lambda x: (x == 'Other', x))}
-    my_dict["topics summary"] = sorted_topics_summary
+    sorted_topics_summary = {k: my_dict["topics_summary"][k] for k in sorted(my_dict["topics_summary"].keys(), key=lambda x: (x == 'Other', x))}
+    my_dict["topics_summary"] = sorted_topics_summary
 
     print(json.dumps(my_dict, indent = 4))
     return my_dict
