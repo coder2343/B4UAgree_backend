@@ -41,4 +41,4 @@ We would like to acknowledge the following tools and inspirations:
 
 - **Privacy Policy Score Calculation**: The `privacy_policy_score` file is based on the work from the [privacy-policy-evaluator](https://github.com/JPAntonisse/privacy-policy-evaluator) repository.
 - **Flask Framework**: This project utilizes the Flask framework for building web applications. We are grateful to the Flask community for their excellent documentation and support.
-  **Reclaim hosting and Grinnell College**: This project utilizes hosting support provided through DLAC and reclaim hosting. The documentation provided provided by reclaim hosting for our wsgi.py file and their support was helpful for getting this project on a webserver
+- **Reclaim hosting and Grinnell College**: This project utilizes hosting support provided through DLAC and reclaim hosting. The documentation provided provided by reclaim hosting for our wsgi.py file and their support was helpful for getting this project on a webserver
