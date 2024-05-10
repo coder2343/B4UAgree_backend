@@ -79,6 +79,10 @@ def html_to_summary(url):
         sentences_arr = curr_paragraphs.split(".")
         sentences_num = len(sentences_arr)
 
+        # Guard for empty paragraph
+        if curr_paragraphs == "":
+            continue
+
         # Score each section based on term identification and importance assessment
         section_score = calculate_importance(curr_paragraphs)
 
@@ -88,10 +92,10 @@ def html_to_summary(url):
         # Check if the section score is above a certain threshold
         if section_score >= 7:  
             # If the score is high, summarize the section with more detail
-            curr_summary = get_summary(curr_paragraphs, 3)  
+            curr_summary = get_summary(curr_paragraphs, 2)  
         else:
             # If the score is low, summarize the section more concisely
-            curr_summary = get_summary(curr_paragraphs, 2)  
+            curr_summary = get_summary(curr_paragraphs, 1)  
 
         # Store summary by topic
         # Check if the assigned_topic already exists in my_dict
