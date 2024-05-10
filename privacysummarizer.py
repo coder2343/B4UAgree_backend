@@ -88,17 +88,17 @@ def html_to_summary(url):
         # Check if the section score is above a certain threshold
         if section_score >= 7:  
             # If the score is high, summarize the section with more detail
-            curr_summary = get_summary(curr_paragraphs, 2)  
+            curr_summary = get_summary(curr_paragraphs, 3)  
         else:
             # If the score is low, summarize the section more concisely
-            curr_summary = get_summary(curr_paragraphs, 1)  
+            curr_summary = get_summary(curr_paragraphs, 2)  
 
         # Store summary by topic
         # Check if the assigned_topic already exists in my_dict
         if assigned_topic not in my_dict["topics_summary"]:
             my_dict["topics_summary"][assigned_topic] = curr_summary  # Create a new entry
         else:
-            my_dict["topics_summary"][assigned_topic] += curr_summary  # Append to existing entry
+            my_dict["topics_summary"][assigned_topic] += " " + curr_summary  # Append to existing entry
 
         # Store summary by heading
         my_dict["headings_summary"][header.get_text()] = curr_summary
