@@ -3,93 +3,94 @@ import json
 import os
 
 # Define fixed topics and their associated keywords
+# Keywords are assigned weight according to how unique they are to their respective topic
 topics_keywords = {
-    "Data Collection and Usage": [
-        "personal information", "data categories", "collection methods",
-        "purpose of collection", "consent", "cookies", "tracking technologies",
-        "user activity", "location data", "device information",
-        "analytics", "profile creation", "communication preferences",
-        "account registration", "surveys and feedback", "social media integration",
-        "third-party data sources", "data retention", "data deletion", "data aggregation",
-        "data analysis", "user behavior", "data utilization", "information gathering",
-        "data storage", "data processing", "data tracking", "data usage policies"
-    ],
-    "Data Sharing and Disclosure": [
-        "third parties", "sharing practices", "partnerships",
-        "advertising networks", "service providers", "legal requirements",
-        "consent agreements", "affiliate programs", "data transfers",
-        "data sales", "data anonymization", "data pseudonymization",
-        "data licensing", "business transactions", "merger or acquisition",
-        "publicly available information", "aggregated data",
-        "cross-border transfers", "data processing agreements", "data breach response",
-        "information exchange", "data dissemination", "data distribution",
-        "sharing protocols", "data disclosure", "data access", "data transmission"
-    ],
-    "Data Security Measures": [
-        "encryption", "secure protocols", "access controls",
-        "authentication methods", "firewall protection", "intrusion detection",
-        "security audits", "vulnerability assessments", "data encryption in transit",
-        "data encryption at rest", "secure storage", "incident response plan",
-        "data minimization", "data masking", "two-factor authentication",
-        "secure sockets layer (ssl)", "transport layer security (tls)",
-        "security certifications", "compliance standards", "security training and awareness",
-        "data integrity", "data protection", "data confidentiality",
-        "data security protocols", "data safeguarding", "data hygiene", "security measures"
-    ],
-    "User Rights and Controls": [
-        "access rights", "rectification", "data portability",
-        "data deletion", "consent withdrawal", "opt-out mechanisms",
-        "privacy settings", "cookie preferences", "marketing preferences",
-        "account management", "privacy dashboard", "privacy policies review",
-        "user profiles", "account deletion", "data export",
-        "data correction", "data restriction", "data erasure",
-        "data retention policies", "user support channels",
-        "data ownership", "user consent", "user preferences",
-        "user privacy rights", "user control", "user data management",
-        "user data access", "children's data", "parental consent",
-        "coppa compliance", "children's privacy rights", "child data protection",
-        "child account management", "child data deletion", "child data access",
-        "child", "children", "child data",
-        "parental controls", "age verification", "age-appropriate content",
-        "child online safety", "child data collection", "aware"
-    ],
-    "Policy Updates and Notifications": [
-        "policy changes", "updates", "modifications",
-        "notification methods", "email notifications", "website banners",
-        "privacy alerts", "opt-in notifications", "opt-out notifications",
-        "consent reminders", "revision history", "version control",
-        "review frequency", "compliance updates", "legal changes",
-        "data protection laws", "privacy regulations", "transparency reports",
-        "communication", "notification preferences",
-        "policy amendments", "policy revisions", "policy alerts",
-        "policy compliance", "policy notifications", "policy review",
-        "policy transparency",
-        "opt-out option", "opt-out preferences", "opt-out requests", 
-        "feedback", "concerns", "suggestions",
-        "feedback", "inquiries", "complaints",
-        "user support", "assistance", "help",
-        "customer service", "user satisfaction", "experience",
-        "engagement"
-    ]
+    "data collection and usage": {
+        "personal information": 3, "data categories": 4, "collection methods": 3,
+        "purpose of collection": 3, "consent": 1, "cookies": 1, "tracking technologies": 2,
+        "user activity": 3, "location data": 4, "device information": 4,
+        "analytics": 3, "profile creation": 3, "communication preferences": 3,
+        "account registration": 4, "surveys and feedback": 4, "social media integration": 4,
+        "third-party data sources": 5, "data retention": 4, "data deletion": 3, "data aggregation": 3,
+        "data analysis": 4, "user behavior": 4, "data utilization": 4, "information gathering": 4,
+        "data storage": 3, "data processing": 3, "data tracking": 3, "data usage policies": 2
+    },
+    "data sharing and disclosure": {
+        "third parties": 5, "sharing practices": 4, "partnerships": 4,
+        "advertising networks": 4, "service providers": 4, "legal requirements": 4,
+        "consent agreements": 3, "affiliate programs": 3, "data transfers": 3,
+        "data sales": 3, "data anonymization": 2, "data pseudonymization": 2,
+        "data licensing": 3, "business transactions": 4, "merger or acquisition": 4,
+        "publicly available information": 4, "aggregated data": 4,
+        "cross-border transfers": 5, "data processing agreements": 4, "data breach response": 4,
+        "information exchange": 4, "data dissemination": 3, "data distribution": 5,
+        "sharing protocols": 5, "data disclosure": 5, "data access": 3, "data transmission": 3
+    },
+    "data security measures": {
+        "encryption": 5, "secure protocols": 5, "access controls": 4,
+        "authentication methods": 3, "firewall protection": 3, "intrusion detection": 5,
+        "security audits": 5, "vulnerability assessments": 5, "data encryption in transit": 5,
+        "data encryption at rest": 3, "secure storage": 5, "incident response plan": 5,
+        "data minimization": 2, "data masking": 2, "two-factor authentication": 4,
+        "secure sockets layer (ssl)": 2, "transport layer security (tls)": 2,
+        "security certifications": 5, "compliance standards": 5, "security training and awareness": 5,
+        "data integrity": 4, "data protection": 4, "data confidentiality": 4,
+        "data security protocols": 5, "data safeguarding": 5, "data hygiene": 5, "security measures": 3
+    },
+    "user rights and controls": {
+        "access rights": 5, "rectification": 4, "data portability": 4,
+        "data deletion": 5, "consent withdrawal": 3, "opt-out mechanisms": 3,
+        "privacy settings": 5, "cookie preferences": 5, "marketing preferences": 5,
+        "account management": 3, "privacy dashboard": 3, "privacy policies review": 5,
+        "user profiles": 3, "account deletion": 5, "data export": 3,
+        "data correction": 3, "data restriction": 3, "data erasure": 3,
+        "data retention policies": 3, "user support channels": 3,
+        "data ownership": 2, "user consent": 2, "user preferences": 2,
+        "user privacy rights": 2, "user control": 2, "user data management": 2,
+        "user data access": 2, "children's data": 5, "parental consent": 5,
+        "coppa compliance": 5, "children's privacy rights": 5, "child data protection": 5,
+        "child account management": 3, "child data deletion": 3, "child data access": 3, "children": 3,
+        "parental controls": 5, "age verification": 3, "age-appropriate content": 4,
+        "child online safety": 5, "child data collection": 5,
+        "opt-out option": 4, "opt-out preferences": 4, "opt-out requests": 4, "opt-out": 4,
+        "right to": 5, "upon your request": 5
+    },
+    "policy updates and notifications": {
+        "policy changes": 5, "updates": 4, "modifications": 4,
+        "notification methods": 3, "email notifications": 3, "website banners": 3,
+        "privacy alerts": 3, "opt-in notifications": 3, "opt-out notifications": 3,
+        "consent reminders": 3, "revision history": 3, "version control": 3,
+        "review frequency": 3, "compliance updates": 3, "legal changes": 3,
+        "data protection laws": 2, "privacy regulations": 2, "transparency reports": 2,
+        "user communication": 2, "notification preferences": 2,
+        "policy amendments": 2, "policy revisions": 2, "policy alerts": 2,
+        "policy compliance": 2, "policy notifications": 2, "policy review": 2,
+        "policy transparency": 2, "feedback": 5, "concerns": 5, "suggestions": 5,
+        "user feedback": 5, "inquiries": 3, "complaints": 4,
+        "support": 3, "assistance": 3, "help": 1,
+        "customer service": 5, "user satisfaction": 3, "user experience": 1,
+        "user engagement": 2,
+    }
 }
+
 
 
 # Assign a paragraph to a topic based on the number of matching keywords.
 def assign_paragraph_to_topic(paragraph, topics_keywords):
     
-    max_match_count = 0
+    max_score = 0
     assigned_topic = "Other"  # Default to "Other" if no specific topic is identified
 
     # Iterate through each topic and its associated keywords
-    for topic, keywords in topics_keywords.items():
-        match_count = 0
+    for topic, keywords_weights in topics_keywords.items():
+        score = 0
         # Count the number of matching keywords in the paragraph
-        for keyword in keywords:
+        for keyword, weight in keywords_weights.items():
             if keyword in paragraph.lower():
-                match_count += 1
+                score += weight
         # Update the assigned topic if the current topic has more matching keywords
-        if match_count > max_match_count:
-            max_match_count = match_count
+        if score > max_score:
+            max_score = score
             assigned_topic = topic
 
     return assigned_topic
